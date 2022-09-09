@@ -28,7 +28,7 @@ I began my academic career as a double major student in biology and animal ecolo
 ### **Assignments**
 | Date | Descriptive Name | Assignment Link |
 | :----- | :-----| :-----|
-| 9/8/2022 | Introduction to Git | [Assignment 1](https://emilybierbaum.github.io/BierbaumBIOL7263/Assignments/Assignment1.html) |
+| 9/8/2022 | Introduction to Git | [Assignment 1](Assignment1/Assignment1.html) |
 | 9/15/2022 | Rmarkdown Webpage | [Assignment 2](https://emilybierbaum.github.io/BierbaumBIOL7263/) |
 | 9/22/2022 | TBD | Assignment 3 |
 | 9/29/2022 | TBD | Assignment 4 | 
