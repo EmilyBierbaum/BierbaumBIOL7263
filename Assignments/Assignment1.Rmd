@@ -1,7 +1,0 @@
----
-title: "Assignment1"
-author: "Emily Bierbaum"
-date: "2022-09-07"
-output: html_document
----
-Hello World
