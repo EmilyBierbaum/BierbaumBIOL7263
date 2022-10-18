@@ -1,0 +1,118 @@
+---
+title: "Assn_4"
+author: "Emily Bierbaum"
+date: "2022-10-18"
+output: html_document
+---
+## **Assignment 4**
+
+#### **Download the required R packages for this assignment**
+
+
+``require(tidyverse)``  
+``require(dplyr)``
+
+
+#### **Import the csv file of interest ``MBT_ebird``**
+##### **Note: Make sure you are in the correct working directory. If your file does not load use this to check your working directory**
+``getwd()``
+
+  
+##### **Import the MBT_ebird csv file, which in located in your results folder**
+``MBT_ebird<-read_csv("Data/MBT_ebird.csv")``  
+  
+
+##### **Examine the csv file**  
+``glimpse(MBT_ebird)``  
+
+
+### *Problem 1: In which year did he observe the most individual birds? How many?*
+
+>  bird_total<-MBT_ebird %>%  
+  group_by(year) %>%  
+  summarize(Bird_Num=sum(count))     
+  
+>  arrange (bird_total, by = desc(Bird_Num))   
+
+#### **ANSWER: 2014; 9303 individuals**
+
+
+
+
+### *Problem 2: In 2014, how many different species of birds did he observe?*
+
+>  Species_of_Birds<-MBT_ebird %>%     
+  filter(year == 2014) %>%    
+  count(common_name)  
+
+>  count(Species_of_Birds, "common_name")  
+
+#### **ANSWER: 210**
+
+
+
+
+### *Problem 3: In which state did he most frequently observe Red-winged Blackbirds?*
+
+>  RWBB<-MBT_ebird %>%  
+  filter(common_name == "Red-winged Blackbird") %>%  
+  group_by(location) %>%  
+  summarize(State_num=sum(count_tot))  
+  
+>  arrange (RWBB, by = desc(State_num))   
+
+#### **ANSWER: Missouri**
+
+
+
+
+### *Problem 4: Filter observations for a duration between 5 and 200 minutes. Calculate the mean rate per checklist that he encountered species each year. Calculate the number of species in each checklist divided by duration and then take the mean for the year*
+
+>  Bird_Duration <-MBT_ebird %>%  
+  filter(duration >= 5 & duration <= 200) %>%  
+  group_by(list_ID)  
+
+##### **Create the new variable rate**
+>  Bird_Duration <- mutate(Bird_Duration, rate=(count/duration))  
+
+>  ungroup(Bird_Duration)  
+
+>  Bird_Duration<-group_by(Bird_Duration, year)  
+
+>  summarize(Bird_Duration, mean_value=mean(rate))  
+
+## **ANSWER:**
+|Order|Year|Mean_value|
+|:----|:----|:----|   
+|1  |2003  |0.0185|  
+|2  |2004  |0.0777|    
+|3   |2009  |0.0521|    
+|4   |2013  |0.0390|    
+|5   |2014  |0.0978|    
+|6   |2015  |0.123|     
+|7   |2016  |0.0483|    
+|8   |2017  |0.0847|   
+|9   |2018  |0.0595|   
+|10  |2019  |0.0311|   
+|11  |2020  |0.542|    
+|12  |2021  |0.0782|   
+|13  |2022  |0.218|    
+
+
+
+
+### *Problem 5: Create a tibble that includes the complete observations for the top 10 most frequently observed species. First generate a top 10 list and then use this list to filter all observations. Export this tibble as a .csv file saved to a folder called “Results” folder within your R project and add link to the markdown document*
+
+>  Top_10_Birds<-MBT_ebird %>%  
+  group_by(common_name) %>%  
+  mutate(frequency = sum(count)) %>%  
+  slice(which.max(frequency))  
+  
+>  Top_10<- head(arrange(Top_10_Birds, by = desc(frequency)),10) %>%  
+group_by(scientific_name, frequency) %>%  
+  filter(frequency == max(frequency, na.rm=TRUE))  
+
+>  write_csv(Top_10, "Results/Top_10_Birds.csv")
+
+**[Link to R Script](Assn4.R)**    
+**[Top 10 Birds csv file](Results/Top_10_Birds.csv)**  
