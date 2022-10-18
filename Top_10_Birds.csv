@@ -1,0 +1,11 @@
+...1,list_ID,common_name,scientific_name,date,time,count,duration,location,latitude,longitude,count_tot,month,year,frequency
+5642,S18486321,Common Grackle,Quiscalus quiscula,2014-05-17,08:30:00,6,90,US-VT,43.7615212,-73.3468035,58,5,2014,5092
+23,S21177034,Canada Goose,Branta canadensis,2015-01-03,14:00:00,4,90,US-IL,39.924334,-91.4148653,11,1,2015,2568
+306,S21177034,Mallard,Anas platyrhynchos,2015-01-03,14:00:00,4,90,US-IL,39.924334,-91.4148653,11,1,2015,2190
+4372,S18486321,American Robin,Turdus migratorius,2014-05-17,08:30:00,2,90,US-VT,43.7615212,-73.3468035,58,5,2014,1951
+3930,S36840519,European Starling,Sturnus vulgaris,2017-05-13,15:40:00,10,20,US-MO,38.8861469,-92.25842,64,5,2017,1661
+5071,S1628441,White-throated Sparrow,Zonotrichia albicollis,2004-03-08,NA,5,0,US-VT,43.77954,-73.29591,20,3,2004,1067
+1157,S18486321,Ring-billed Gull,Larus delawarensis,2014-05-17,08:30:00,1,90,US-VT,43.7615212,-73.3468035,58,5,2014,927
+5471,S37097000,Red-winged Blackbird,Agelaius phoeniceus,2017-05-23,14:06:00,14,50,US-VT,44.097019,-73.342045100000007,44,5,2017,864
+6301,S18503364,Northern Cardinal,Cardinalis cardinalis,2014-05-20,15:00:00,4,180,US-VT,43.8264,-73.3808,66,5,2014,841
+4955,S102586462,Dark-eyed Junco,Junco hyemalis,2022-02-13,13:28:00,15,44,US-AR,36.477805,-94.2451848,30,2,2022,745
