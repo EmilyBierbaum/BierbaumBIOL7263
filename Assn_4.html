@@ -372,204 +372,194 @@ pre code {
 
 <div id="assignment-4" class="section level2">
 <h2><strong>Assignment 4</strong></h2>
-<div id="download-the-required-r-packages-for-this-assignment" class="section level4">
-<h4><strong>Download the required R packages for this
-assignment</strong></h4>
-<p><code>require(tidyverse)</code><br />
-<code>require(dplyr)</code></p>
+<div id="download-the-required-r-packages-for-this-assignment" class="section level5">
+<h5>Download the required R packages for this assignment</h5>
+<pre class="r"><code>require(tidyverse)  </code></pre>
+<pre><code>## Loading required package: tidyverse</code></pre>
+<pre><code>## ── Attaching packages ─────────────────────────────────────── tidyverse 1.3.2 ──
+## ✔ ggplot2 3.3.6      ✔ purrr   0.3.4 
+## ✔ tibble  3.1.8      ✔ dplyr   1.0.10
+## ✔ tidyr   1.2.1      ✔ stringr 1.4.0 
+## ✔ readr   2.1.2      ✔ forcats 0.5.2 
+## ── Conflicts ────────────────────────────────────────── tidyverse_conflicts() ──
+## ✖ dplyr::filter() masks stats::filter()
+## ✖ dplyr::lag()    masks stats::lag()</code></pre>
+<pre class="r"><code>require(dplyr)</code></pre>
 </div>
-<div id="import-the-csv-file-of-interest-mbt_ebird" class="section level4">
-<h4><strong>Import the csv file of interest
-<code>MBT_ebird</code></strong></h4>
-<div id="note-make-sure-you-are-in-the-correct-working-directory.-if-your-file-does-not-load-use-this-to-check-your-working-directory" class="section level5">
-<h5><strong>Note: Make sure you are in the correct working directory. If
-your file does not load use this to check your working
-directory</strong></h5>
-<p><code>getwd()</code></p>
+<div id="import-the-csv-file-of-interest-mbt_ebird" class="section level5">
+<h5>Import the csv file of interest <code>MBT_ebird</code></h5>
+<div id="note-make-sure-you-are-in-the-correct-working-directory.-if-your-file-does-not-load-use-this-to-check-your-working-directory" class="section level6">
+<h6>Note: Make sure you are in the correct working directory. If your
+file does not load use this to check your working directory</h6>
+<pre class="r"><code>getwd()</code></pre>
+<pre><code>## [1] &quot;C:/Users/emily/Documents/Toomey&#39;s R Seminar/BierbaumBIOL7263&quot;</code></pre>
 </div>
-<div id="import-the-mbt_ebird-csv-file-which-in-located-in-your-results-folder" class="section level5">
-<h5><strong>Import the MBT_ebird csv file, which in located in your
-results folder</strong></h5>
-<p><code>MBT_ebird&lt;-read_csv(&quot;Data/MBT_ebird.csv&quot;)</code></p>
+</div>
+<div id="import-the-mbt_ebird-csv-file-which-is-located-in-your-results-folder" class="section level5">
+<h5>Import the MBT_ebird csv file, which is located in your results
+folder</h5>
+<pre class="r"><code>MBT_ebird&lt;-read_csv(&quot;Data/MBT_ebird.csv&quot;) </code></pre>
+<pre><code>## New names:
+## Rows: 6595 Columns: 14
+## ── Column specification
+## ──────────────────────────────────────────────────────── Delimiter: &quot;,&quot; chr
+## (4): list_ID, common_name, scientific_name, location dbl (8): ...1, count,
+## duration, latitude, longitude, count_tot, month, year date (1): date time (1):
+## time
+## ℹ Use `spec()` to retrieve the full column specification for this data. ℹ
+## Specify the column types or set `show_col_types = FALSE` to quiet this message.
+## • `` -&gt; `...1`</code></pre>
 </div>
 <div id="examine-the-csv-file" class="section level5">
-<h5><strong>Examine the csv file</strong></h5>
-<p><code>glimpse(MBT_ebird)</code></p>
+<h5>Examine the csv file</h5>
+<pre class="r"><code>glimpse(MBT_ebird)</code></pre>
+<pre><code>## Rows: 6,595
+## Columns: 14
+## $ ...1            &lt;dbl&gt; 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16,…
+## $ list_ID         &lt;chr&gt; &quot;S40748758&quot;, &quot;S33616660&quot;, &quot;S33809874&quot;, &quot;S35533959&quot;, &quot;S…
+## $ common_name     &lt;chr&gt; &quot;Snow Goose&quot;, &quot;Snow Goose&quot;, &quot;Snow Goose&quot;, &quot;Snow Goose&quot;…
+## $ scientific_name &lt;chr&gt; &quot;Anser caerulescens&quot;, &quot;Anser caerulescens&quot;, &quot;Anser cae…
+## $ date            &lt;date&gt; 2017-11-26, 2017-01-12, 2017-01-20, 2017-03-30, 2017-…
+## $ time            &lt;time&gt; 10:28:00, 07:00:00, 16:26:00, 07:05:00, 07:00:00, 18:…
+## $ count           &lt;dbl&gt; 16, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 26, 30, 6, 31,…
+## $ duration        &lt;dbl&gt; 20, 90, 59, 100, 127, 68, 109, 98, 173, 45, 118, 85, 1…
+## $ location        &lt;chr&gt; &quot;US-MO&quot;, &quot;US-MO&quot;, &quot;US-MO&quot;, &quot;US-MO&quot;, &quot;US-MO&quot;, &quot;US-MO&quot;, …
+## $ latitude        &lt;dbl&gt; 38.87193, 38.63891, 38.63891, 38.63891, 38.63891, 38.6…
+## $ longitude       &lt;dbl&gt; -90.18439, -90.28538, -90.28538, -90.28538, -90.28538,…
+## $ count_tot       &lt;dbl&gt; 369, 272, 188, 283, 369, 28, 247, 237, 137, 114, 108, …
+## $ month           &lt;dbl&gt; 11, 1, 1, 3, 4, 4, 4, 4, 4, 5, 6, 8, 1, 2, 12, 11, 11,…
+## $ year            &lt;dbl&gt; 2017, 2017, 2017, 2017, 2017, 2017, 2017, 2017, 2017, …</code></pre>
 </div>
+<div id="problem-1-in-which-year-did-he-observe-the-most-individual-birds-how-many" class="section level4">
+<h4>Problem 1: In which year did he observe the most individual birds?
+How many?</h4>
+<pre class="r"><code>bird_total&lt;-MBT_ebird %&gt;%  
+  group_by(year) %&gt;%  
+  summarize(Bird_Num=sum(count))
+
+arrange (bird_total, by = desc(Bird_Num))</code></pre>
+<pre><code>## # A tibble: 13 × 2
+##     year Bird_Num
+##    &lt;dbl&gt;    &lt;dbl&gt;
+##  1  2014     9303
+##  2  2020     8941
+##  3  2017     6102
+##  4  2021     3713
+##  5  2015     3219
+##  6  2018     1738
+##  7  2022     1371
+##  8  2004     1116
+##  9  2019      677
+## 10  2016      379
+## 11  2013      151
+## 12  2003       49
+## 13  2009       25</code></pre>
 </div>
-<div id="problem-1-in-which-year-did-he-observe-the-most-individual-birds-how-many" class="section level3">
-<h3><em>Problem 1: In which year did he observe the most individual
-birds? How many?</em></h3>
-<blockquote>
-<p>bird_total&lt;-MBT_ebird %&gt;%<br />
-group_by(year) %&gt;%<br />
-summarize(Bird_Num=sum(count))</p>
-</blockquote>
-<blockquote>
-<p>arrange (bird_total, by = desc(Bird_Num))</p>
-</blockquote>
 <div id="answer-2014-9303-individuals" class="section level4">
 <h4><strong>ANSWER: 2014; 9303 individuals</strong></h4>
 </div>
+<div id="problem-2-in-2014-how-many-different-species-of-birds-did-he-observe" class="section level4">
+<h4>Problem 2: In 2014, how many different species of birds did he
+observe?</h4>
+<pre class="r"><code>Species_of_Birds&lt;-MBT_ebird %&gt;%     
+  filter(year == 2014) %&gt;%    
+  count(common_name)  
+
+count(Species_of_Birds, &quot;common_name&quot;) </code></pre>
+<pre><code>## # A tibble: 1 × 2
+##   `&quot;common_name&quot;`     n
+##   &lt;chr&gt;           &lt;int&gt;
+## 1 common_name       210</code></pre>
 </div>
-<div id="problem-2-in-2014-how-many-different-species-of-birds-did-he-observe" class="section level3">
-<h3><em>Problem 2: In 2014, how many different species of birds did he
-observe?</em></h3>
-<blockquote>
-<p>Species_of_Birds&lt;-MBT_ebird %&gt;%<br />
-filter(year == 2014) %&gt;%<br />
-count(common_name)</p>
-</blockquote>
-<blockquote>
-<p>count(Species_of_Birds, “common_name”)</p>
-</blockquote>
 <div id="answer-210" class="section level4">
 <h4><strong>ANSWER: 210</strong></h4>
 </div>
+<div id="problem-3-in-which-state-did-he-most-frequently-observe-red-winged-blackbirds" class="section level4">
+<h4>Problem 3: In which state did he most frequently observe Red-winged
+Blackbirds?</h4>
+<pre class="r"><code>RWBB&lt;-MBT_ebird %&gt;%  
+  filter(common_name == &quot;Red-winged Blackbird&quot;) %&gt;%  
+  group_by(location) %&gt;%  
+  summarize(State_num=sum(count_tot))  
+  
+arrange (RWBB, by = desc(State_num))</code></pre>
+<pre><code>## # A tibble: 5 × 2
+##   location State_num
+##   &lt;chr&gt;        &lt;dbl&gt;
+## 1 US-MO         8443
+## 2 US-OK         6861
+## 3 US-VT          391
+## 4 US-FL          168
+## 5 US-IL           30</code></pre>
 </div>
-<div id="problem-3-in-which-state-did-he-most-frequently-observe-red-winged-blackbirds" class="section level3">
-<h3><em>Problem 3: In which state did he most frequently observe
-Red-winged Blackbirds?</em></h3>
-<blockquote>
-<p>RWBB&lt;-MBT_ebird %&gt;%<br />
-filter(common_name == “Red-winged Blackbird”) %&gt;%<br />
-group_by(location) %&gt;%<br />
-summarize(State_num=sum(count_tot))</p>
-</blockquote>
-<blockquote>
-<p>arrange (RWBB, by = desc(State_num))</p>
-</blockquote>
 <div id="answer-missouri" class="section level4">
 <h4><strong>ANSWER: Missouri</strong></h4>
 </div>
-</div>
-<div id="problem-4-filter-observations-for-a-duration-between-5-and-200-minutes.-calculate-the-mean-rate-per-checklist-that-he-encountered-species-each-year.-calculate-the-number-of-species-in-each-checklist-divided-by-duration-and-then-take-the-mean-for-the-year" class="section level3">
-<h3><em>Problem 4: Filter observations for a duration between 5 and 200
-minutes. Calculate the mean rate per checklist that he encountered
-species each year. Calculate the number of species in each checklist
-divided by duration and then take the mean for the year</em></h3>
-<blockquote>
-<p>Bird_Duration &lt;-MBT_ebird %&gt;%<br />
-filter(duration &gt;= 5 &amp; duration &lt;= 200) %&gt;%<br />
-group_by(list_ID)</p>
-</blockquote>
+<div id="problem-4-filter-observations-for-a-duration-between-5-200-minutes.-calculate-the-mean-rate-per-checklist-that-he-encountered-species-each-year.-calculate-the-number-of-species-in-each-checklist-divided-by-duration-and-then-take-the-mean-for-the-year" class="section level4">
+<h4>Problem 4: Filter observations for a duration between 5-200 minutes.
+Calculate the mean rate per checklist that he encountered species each
+year. Calculate the number of species in each checklist divided by
+duration and then take the mean for the year*</h4>
+<pre class="r"><code>Bird_Duration &lt;-MBT_ebird %&gt;%  
+  filter(duration &gt;= 5 &amp; duration &lt;= 200) %&gt;%  
+  group_by(list_ID)  </code></pre>
 <div id="create-the-new-variable-rate" class="section level5">
-<h5><strong>Create the new variable rate</strong></h5>
-<blockquote>
-<p>Bird_Duration &lt;- mutate(Bird_Duration, rate=(count/duration))</p>
-</blockquote>
-<blockquote>
-<p>ungroup(Bird_Duration)</p>
-</blockquote>
-<blockquote>
-<p>Bird_Duration&lt;-group_by(Bird_Duration, year)</p>
-</blockquote>
-<blockquote>
-<p>summarize(Bird_Duration, mean_value=mean(rate))</p>
-</blockquote>
+<h5>Create the new variable rate</h5>
+<pre class="r"><code>Bird_Duration &lt;- mutate(Bird_Duration, rate=(count/duration))  
+
+ungroup(Bird_Duration)  </code></pre>
+<pre><code>## # A tibble: 5,829 × 15
+##     ...1 list_ID  commo…¹ scien…² date       time  count durat…³ locat…⁴ latit…⁵
+##    &lt;dbl&gt; &lt;chr&gt;    &lt;chr&gt;   &lt;chr&gt;   &lt;date&gt;     &lt;tim&gt; &lt;dbl&gt;   &lt;dbl&gt; &lt;chr&gt;     &lt;dbl&gt;
+##  1     1 S407487… Snow G… Anser … 2017-11-26 10:28    16      20 US-MO      38.9
+##  2     2 S336166… Snow G… Anser … 2017-01-12 07:00     1      90 US-MO      38.6
+##  3     3 S338098… Snow G… Anser … 2017-01-20 16:26     1      59 US-MO      38.6
+##  4     4 S355339… Snow G… Anser … 2017-03-30 07:05     1     100 US-MO      38.6
+##  5     5 S356980… Snow G… Anser … 2017-04-04 07:00     1     127 US-MO      38.6
+##  6     6 S358612… Snow G… Anser … 2017-04-10 18:06     1      68 US-MO      38.6
+##  7     7 S359184… Snow G… Anser … 2017-04-13 06:59     1     109 US-MO      38.6
+##  8     8 S361181… Snow G… Anser … 2017-04-20 07:00     1      98 US-MO      38.6
+##  9     9 S361989… Snow G… Anser … 2017-04-23 08:13     1     173 US-MO      38.6
+## 10    10 S368405… Snow G… Anser … 2017-05-13 18:00     1      45 US-MO      38.6
+## # … with 5,819 more rows, 5 more variables: longitude &lt;dbl&gt;, count_tot &lt;dbl&gt;,
+## #   month &lt;dbl&gt;, year &lt;dbl&gt;, rate &lt;dbl&gt;, and abbreviated variable names
+## #   ¹​common_name, ²​scientific_name, ³​duration, ⁴​location, ⁵​latitude</code></pre>
+<pre class="r"><code>Bird_Duration&lt;-group_by(Bird_Duration, year)  
+
+summarize(Bird_Duration, mean_value=mean(rate)) </code></pre>
+<pre><code>## # A tibble: 13 × 2
+##     year mean_value
+##    &lt;dbl&gt;      &lt;dbl&gt;
+##  1  2003     0.0185
+##  2  2004     0.0777
+##  3  2009     0.0521
+##  4  2013     0.0390
+##  5  2014     0.0978
+##  6  2015     0.123 
+##  7  2016     0.0483
+##  8  2017     0.0847
+##  9  2018     0.0595
+## 10  2019     0.0311
+## 11  2020     0.542 
+## 12  2021     0.0782
+## 13  2022     0.218</code></pre>
 </div>
 </div>
-</div>
-<div id="answer" class="section level2">
-<h2><strong>ANSWER:</strong></h2>
-<table>
-<thead>
-<tr class="header">
-<th align="left">Order</th>
-<th align="left">Year</th>
-<th align="left">Mean_value</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td align="left">1</td>
-<td align="left">2003</td>
-<td align="left">0.0185</td>
-</tr>
-<tr class="even">
-<td align="left">2</td>
-<td align="left">2004</td>
-<td align="left">0.0777</td>
-</tr>
-<tr class="odd">
-<td align="left">3</td>
-<td align="left">2009</td>
-<td align="left">0.0521</td>
-</tr>
-<tr class="even">
-<td align="left">4</td>
-<td align="left">2013</td>
-<td align="left">0.0390</td>
-</tr>
-<tr class="odd">
-<td align="left">5</td>
-<td align="left">2014</td>
-<td align="left">0.0978</td>
-</tr>
-<tr class="even">
-<td align="left">6</td>
-<td align="left">2015</td>
-<td align="left">0.123</td>
-</tr>
-<tr class="odd">
-<td align="left">7</td>
-<td align="left">2016</td>
-<td align="left">0.0483</td>
-</tr>
-<tr class="even">
-<td align="left">8</td>
-<td align="left">2017</td>
-<td align="left">0.0847</td>
-</tr>
-<tr class="odd">
-<td align="left">9</td>
-<td align="left">2018</td>
-<td align="left">0.0595</td>
-</tr>
-<tr class="even">
-<td align="left">10</td>
-<td align="left">2019</td>
-<td align="left">0.0311</td>
-</tr>
-<tr class="odd">
-<td align="left">11</td>
-<td align="left">2020</td>
-<td align="left">0.542</td>
-</tr>
-<tr class="even">
-<td align="left">12</td>
-<td align="left">2021</td>
-<td align="left">0.0782</td>
-</tr>
-<tr class="odd">
-<td align="left">13</td>
-<td align="left">2022</td>
-<td align="left">0.218</td>
-</tr>
-</tbody>
-</table>
-<div id="problem-5-create-a-tibble-that-includes-the-complete-observations-for-the-top-10-most-frequently-observed-species.-first-generate-a-top-10-list-and-then-use-this-list-to-filter-all-observations.-export-this-tibble-as-a-.csv-file-saved-to-a-folder-called-results-folder-within-your-r-project-and-add-link-to-the-markdown-document" class="section level3">
-<h3><em>Problem 5: Create a tibble that includes the complete
-observations for the top 10 most frequently observed species. First
-generate a top 10 list and then use this list to filter all
-observations. Export this tibble as a .csv file saved to a folder called
-“Results” folder within your R project and add link to the markdown
-document</em></h3>
-<blockquote>
-<p>Top_10_Birds&lt;-MBT_ebird %&gt;%<br />
-group_by(common_name) %&gt;%<br />
-mutate(frequency = sum(count)) %&gt;%<br />
-slice(which.max(frequency))</p>
-</blockquote>
-<blockquote>
-<p>Top_10&lt;- head(arrange(Top_10_Birds, by = desc(frequency)),10)
-%&gt;%<br />
-group_by(scientific_name, frequency) %&gt;%<br />
-filter(frequency == max(frequency, na.rm=TRUE))</p>
-</blockquote>
-<blockquote>
-<p>write_csv(Top_10, “Results/Top_10_Birds.csv”)</p>
-</blockquote>
+<div id="problem-5-create-a-tibble-that-includes-the-complete-observations-for-the-top-10-most-frequently-observed-species.-first-generate-a-top-10-list-and-then-use-this-list-to-filter-all-observations.-export-this-tibble-as-a-.csv-file-saved-to-a-folder-called-results-folder-within-your-r-project-and-add-link-to-the-markdown-document" class="section level4">
+<h4>Problem 5: Create a tibble that includes the complete observations
+for the top 10 most frequently observed species. First generate a top 10
+list and then use this list to filter all observations. Export this
+tibble as a .csv file saved to a folder called “Results” folder within
+your R project and add link to the markdown document</h4>
+<pre class="r"><code>Top_10_Birds&lt;-MBT_ebird %&gt;%  
+  group_by(common_name) %&gt;%  
+  mutate(frequency = sum(count)) %&gt;%  
+  slice(which.max(frequency)) </code></pre>
+<pre class="r"><code>Top_10&lt;- head(arrange(Top_10_Birds, by = desc(frequency)),10) %&gt;%  
+group_by(scientific_name, frequency) %&gt;%  
+  filter(frequency == max(frequency, na.rm=TRUE))  
+
+write_csv(Top_10, &quot;Results/Top_10_Birds.csv&quot;)</code></pre>
 <p><strong><a href="Assn4.R">Link to R Script</a></strong><br />
 <strong><a href="Results/Top_10_Birds.csv">Top 10 Birds csv
 file</a></strong></p>
