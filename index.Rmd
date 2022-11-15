@@ -33,5 +33,8 @@ I began my academic career as a double major student in biology and animal ecolo
 | 9/22/2022 | Regular Expression and BashShell intro | [Assignment 3](Assignment3.html)
 | 9/29/2022 | ``dplyr`` Exercises | [Assignment 4](Assn_4.html) 
 |9/29/2022 | Pivot and Merge using ``tidyr`` | [Assignment 5](Assn5.html)
-|10/20/2022 | Making GGPlots | [Assignment 6](Assn_6.html)
+|10/13/2022 | Making GGPlots | [Assignment 6](Assn6.html)
+|10/20/2022 | GIS Climate Niche Map | [Assignment 7](GIS.html)
+|10/24/2022 | Tanner's AcuityView Assn | [Assignment8]
+|11/17/2022 | PHYTOOLS PRESENTATION | [Lecture](Bierbaum.html)
 

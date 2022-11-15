@@ -1,0 +1,372 @@
+---
+title: "Bierbaum Presentation"
+author: "Emily L. Bierbaum"
+date: "November 17, 2022"
+output: html_document
+---
+
+# **PHYTOOLS**
+## Phylogenetic Tools for Comparative Biology 
+#### This package helps users with phylogenetic analyses, specifically creating phylogenies from comparative data of species. We will focus on introducing the package and making our own phylogenies. AND we can import datasets from published papers!
+>
+
+#### You will need to download the following packages:
+```
+install.packages("phytools")  
+install.packages("geiger")  
+install.packages("diversitree")  
+install.packages("mapplots)
+```   
+> 
+
+#### Download these files:
+**[SallyTree](Bonett_tree)**   
+  
+**[time_calibrated](time_cal)**    
+
+>
+
+
+#### The following packages should be installed when Phytools is: `ape` and `phangorn`. You can double check by examining the package versions
+```{r}
+packageVersion("ape")
+packageVersion("phangorn")
+```
+>
+
+
+#### Enable the packages
+```{r}
+require(phytools)
+require("geiger")
+require(diversitree)
+```
+>
+
+
+#### The package `ape`, stands for *Analysis of Phylogenetics and Evolution in R*. First we will create a text string called **Phylo1**  
+####     Create a text string, then use the following command `read.tree` to read the tree and `plotTree` to plot it.  
+#####    `ftype`chooses the font type : regular or italicized
+#### Since I study Salamanders, let's add an arrow to show their importance
+```{r}
+phylo1<-
+  "((Caudata,Anura),Gymnophiona);"
+Amphibians<-read.tree(text=phylo1)
+plotTree(Amphibians,ftype="reg")
+add.arrow(Amphibians=NULL, tip =  1, offset=8)
+```
+
+
+>
+
+#### Now we will create a more complex tree. Notice the `_` for two worded tip names
+##### This tree contains some of the major vertebrate groups
+```{r}
+phylo2<-
+  "(((((((cow, pig),whale),(bat,(lemur,human))),(blue_jay,snake)),coelacanth),gold_fish),lamprey);"
+vert_tree<-read.tree(text=phylo2)
+```
+
+> 
+
+#### Plot the tree  
+##### Can change the `edge width` and the `margins`
+```{r}
+plot(vert_tree,no.margin=TRUE,edge.width = 1)
+```
+
+
+
+#### Can make different tree formats: *rounded*
+```{r}
+roundPhylogram(vert_tree)
+```
+
+
+#### Can make a cladogram and change the color to `blue` 
+##### Can change the `label offset` 
+```{r}
+plot(vert_tree, edge.color = "blue", label.offset = 0.2, type = "cladogram")
+```
+
+
+
+#### Make an unrooted tree  
+##### The `lab4ut` changes the orientation of the tip name
+```{r}
+plot(unroot(vert_tree),type="unrooted",no.margin=TRUE,lab4ut="axial",
+     edge.width=2)
+```
+
+
+
+#### **NOT** time calibrated
+```{r}
+Salamanders<-
+  "(((((((Amphiumidae,Plethodontidae),Rhyacotritonidae),((Ambystomatidae,Dicamptodontidae),Salamandridae)),Proteidae)),Sirenidae),(Hynobiidae,Cryptobranchidae));"
+Mander.tree<-read.tree(text=Salamanders)
+plot(Mander.tree, label.offset = 0.2)
+```
+
+
+
+#### Reveal the internal information of the tree  
+```{r}
+Mander.tree
+```
+>
+
+
+#### Gives you the names of the tips... and counts the tips and nodes 
+```{r}
+Mander.tree$tip.label
+Ntip(Mander.tree)
+Mander.tree$Nnode
+```
+>
+
+#### Plot the tree. Can lay the tip and node numbers on top of it. Very helpful! 
+```{r}
+plotTree(Mander.tree,offset=0.5)
+tiplabels()
+nodelabels()
+```
+  
+>
+
+#### The `drop.tip` command allows us to drop a tip of interest. Let's drop *tip 8*, Sirenidae
+```{r}
+dropped<-drop.tip(Mander.tree,8)
+```
+  
+>
+
+
+#### Sirenidae is gone
+```{r}
+plot(dropped)
+```
+
+
+
+#### Upload the **TIME** calibrated tree
+##### Includes the branch lengths!
+```{r}
+time_calibrated<-read.tree("time_cal")
+plot(time_calibrated)
+time_calibrated
+```
+  
+>
+
+#### Input a large Nexus file from Bonett and Blair paper of **SALAMANDERS**
+```{r}
+
+SallyTree<-read.nexus("Bonett_tree")
+```
+>
+
+
+#### Plot the nexus tree... looks extremely messy
+```{r}
+plot(SallyTree)
+tiplabels()
+nodelabels()
+```
+
+
+#### Let's clean it up a bit by changing the `font size` and `lwd`
+##### `ftype=i` means *italics* and `reg` means regular; `lwd = edge width`
+```{r}
+plotTree(SallyTree,ftype="i",fsize=0.2,lwd=1)
+```
+
+#### Count the number of tips (*species*)
+```{r}
+Ntip(SallyTree)
+```
+>
+
+#### Get a list of all the genera (they are unique)
+##### `sapply()` applies a function to all input elements. This function takes a data frame as an argument and returns a vector matrix. `strsplit()` splits elements and we specify to return a vector size of 1
+```{r}
+tips<-SallyTree$tip.label
+genera<-unique(sapply(strsplit(tips,"_"),function(x) x[1]))
+genera
+```
+
+
+#### We can create an `unrooted` tree with the large tree file or a `fan` style phylogeny
+```{r}
+plot(unroot(SallyTree),type="unrooted",cex=0.2,
+             use.edge.length=FALSE,lab4ut="axial",
+             no.margin=TRUE)
+
+plotTree(SallyTree,type="fan",fsize=0.2,lwd=1,ftype="i")
+
+```
+
+
+```{r}
+plotTree(SallyTree,ftype="i",fsize=0.2,lwd=1)
+nodelabels()
+tiplabels()
+```
+
+
+
+#### Extract a clade of interest
+```{r}
+tt674 <- extract.clade(SallyTree, 674)
+
+plotTree(tt674,ftype="i",fsize=0.8)
+```
+
+
+
+```{r}
+require(mapplots)
+```
+  
+>
+
+#### Examine the geological periods at the salamander family level with `geo.palette()`
+```{r}
+geo.palette()
+```
+  
+>
+
+#### Make sure the names of each geological period match up with the correct date. I accessed this code from a Phytools blog
+
+```{r}
+tr<-as.phylo(time_calibrated)
+
+geolegend3<-function(leg=NULL,cols=NULL,alpha=0.2,...){
+  if(hasArg(cex)) cex<-list(...)$cex
+  else cex<-par()$cex
+  if(is.null(cols)){
+    cols<-setNames(c(
+      rgb(255,242,127,255,maxColorValue=255),
+      rgb(255,230,25,255,maxColorValue=255),
+      rgb(253,154,82,255,maxColorValue=255),
+      rgb(127,198,78,255,maxColorValue=255),
+      rgb(52,178,201,255,maxColorValue=255),
+      rgb(129,43,146,255,maxColorValue=255),
+      rgb(240,64,40,255,maxColorValue=255),
+      rgb(103,165,153,255,maxColorValue=255),
+      rgb(203,140,55,255,maxColorValue=255),
+      rgb(179,225,182,255,maxColorValue=255),
+      rgb(0,146,112,255,maxColorValue=255),
+      rgb(127,160,86,255,maxColorValue=255),
+      rgb(247,67,112,255,maxColorValue=255)),
+      c("Quaternary","Neogene","Paleogene",
+        "Cretaceous","Jurassic","Triassic",
+        "Permian","Carboniferous","Devonian",
+        "Silurian","Ordovician","Cambrian",
+        "Precambrian"))
+  }
+  if(is.null(leg)){
+    leg<-rbind(c(2.588,0),
+               c(23.03,2.588),
+               c(66.0,23.03),
+               c(145.0,66.0),
+               c(201.3,145.0),
+               c(252.17,201.3),
+               c(298.9,252.17),
+               c(358.9,298.9),
+               c(419.2,358.9),
+               c(443.8,419.2),
+               c(485.4,443.8),
+               c(541.0,485.4),
+               c(4600,541.0))
+    rownames(leg)<-c("Quaternary","Neogene","Paleogene",
+                     "Cretaceous","Jurassic","Triassic",
+                     "Permian","Carboniferous","Devonian",
+                     "Silurian","Ordovician","Cambrian",
+                     "Precambrian")
+  }
+  cols<-sapply(cols,make.transparent,alpha=alpha)
+  obj<-get("last_plot.phylo",envir=.PlotPhyloEnv)
+  t.max<-max(obj$x.lim)
+  ii<-which(leg[,2]<=t.max)
+  leg<-leg[ii,]
+  leg[max(ii),1]<-t.max
+  y<-c(rep(0,2),rep(par()$usr[4],2))
+  for(i in 1:nrow(leg)){
+    polygon(c(leg[i,1:2],leg[i,2:1]),y,col=cols[rownames(leg)[i]],
+            border=NA)
+    lines(x=rep(leg[i,1],2),y=c(0,par()$usr[4]),lty="dotted",
+          col="grey")
+    lines(x=c(leg[i,1],mean(leg[i,])-0.8*cex*
+                get.asp()*strheight(rownames(leg)[i])),
+          y=c(0,-1),lty="dotted",col="grey")
+    lines(x=c(leg[i,2],mean(leg[i,])+0.8*cex*
+                get.asp()*strheight(rownames(leg)[i])),
+          y=c(0,-1),lty="dotted",col="grey")
+    lines(x=rep(mean(leg[i,])-0.8*cex*
+                  get.asp()*strheight(rownames(leg)[i]),2),
+          y=c(-1,par()$usr[3]),lty="dotted",col="grey")
+    lines(x=rep(mean(leg[i,])+0.8*cex*
+                  get.asp()*strheight(rownames(leg)[i]),2),
+          y=c(-1,par()$usr[3]),lty="dotted",col="grey")
+    polygon(x=c(leg[i,1],
+                mean(leg[i,])-0.8*cex*get.asp()*strheight(rownames(leg)[i]),
+                mean(leg[i,])-0.8*cex*get.asp()*strheight(rownames(leg)[i]),
+                mean(leg[i,])+0.8*cex*get.asp()*strheight(rownames(leg)[i]),
+                mean(leg[i,])+0.8*cex*get.asp()*strheight(rownames(leg)[i]),
+                leg[i,2]),y=c(0,-1,par()$usr[3],par()$usr[3],-1,0),
+            col=cols[rownames(leg)[i]],border=NA)
+    text(x=mean(leg[i,]),y=-1,labels=rownames(leg)[i],srt=90,
+         adj=c(1,0.5),cex=cex)
+  }
+}
+
+```
+
+  >  
+  
+  
+
+
+#### This last part will change the dimensions, so we can see the geological period labels. It also makes the colors and texts bolder
+```{r}
+plotTree(tr)
+
+
+plotTree(tr,direction="leftwards",xlim=c(180,-60),
+         ylim=c(-3,11),log="x",lwd=1)
+geo.legend(alpha=0.3,cex=1.2)
+plotTree(tr,direction="leftwards",xlim=c(180,-60),
+         ylim=c(-3,11),log="x",lwd=1,add=TRUE)
+```
+
+
+
+>  
+
+
+# **Phytools Activity**  
+ 
+### Create a family level tree with 8 tips in a clade of interest. Make sure they are evolutionarily correct (*e.g.*, sister species)  
+### Change the color of the tree to something besides the default
+
+
+
+
+
+
+
+
+### **Links used:**  
+[PhyTools.org](http://blog.phytools.org/)     
+[Cordoba Workship](http://www.phytools.org/Cordoba2017/)
+
+
+
+
+
+
+
+
+

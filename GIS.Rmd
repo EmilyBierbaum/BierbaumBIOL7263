@@ -1,0 +1,18 @@
+---
+title: "GIS_Assn"
+author: "Emily Bierbaum"
+date: "November 14, 2022"
+output: html_document
+---
+
+# **Assignment 7** 
+### This markdown file contains the R script for generating a climate niche with my selected location highlighted, as well as the final image of it
+
+
+
+**R script for GIS Assignment**   
+[Assignment 7](GIS.R)
+  
+**GIS Climate Niche Map**
+  
+[Map](GIS_Lessons/Assn7.jpeg)

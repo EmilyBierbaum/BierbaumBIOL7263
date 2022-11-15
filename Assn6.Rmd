@@ -1,0 +1,131 @@
+---
+title: "Assn_6"
+author: "Emily Bierbaum"
+date: "2022-11-11"
+output: html_document
+---
+
+## **Assignment #6**
+
+>
+
+#### Load the required libraries
+```{r}
+require(tidyverse)
+```
+
+>
+ 
+ 
+#### Import the csv file 
+```{r}
+MBT_ebird<-read.csv("Data/MBT_ebird2.csv")
+```
+>
+
+#### **(1a)** Using the ebird dataset, calculate the number of species seen each month of each year in each location.
+  - Group the csv files by location, month, and year  
+  - Then we will summarize the groups by species count
+  - `Length ()` function calculates the length of lists/vectors that have *unique* common names
+  - `.group="drop"` is used because the output becomes ungrouped
+```{r}
+bird_stats<- MBT_ebird %>%
+  group_by(location, month, year) %>%
+  summarize(species_count = length(unique(common_name)), .groups = "drop")
+```
+ 
+>
+
+#### **(1b)** Plot the number of species seen each month with the color of the points indicating year and facet this plot by location
+  - Create a `ggplot` using the data above, `bird_stats`
+  - `aes` specifies the variables to be plotted
+  - `as.factor` is needed or else the months are in increments of 0.5
+  - `facet_wrap` generates multiple plots based on location
+  - The geometric is drawn in points and the axes and title were labeled
+  - The figure legend will be for year
+  - Lastly, I changed the color gradient to rainbow
+
+```{r}
+prob1 <- ggplot(data = bird_stats)+
+  aes(as.factor(month), species_count, color = year) +
+  facet_wrap(~location) +
+  geom_point(size=1.5) +
+  theme_gray() +
+  xlab("Month") +
+  ylab("Species Count") +
+  ggtitle("Species Count by State") 
+
+problem1<-prob1+scale_color_gradientn(colours = rainbow(5))
+problem1
+```
+
+  
+
+#### *Using the data set from Assignment #5:*
+#### **(2)** Plot a comparison of mass by treatment including the individual observations, the mean, and standard error of the mean. Use point color or shape to indicate the sex.  
+  - Import the data file from Assignment 5
+  - Create a `ggplot` of the data frame `mass_treat`
+  - Group and mass were specified as the variables to be plotted
+  - `geom_jitter` adds a small amount of random variation for each point
+  - The axes and title was labeled, as well as a cross bar that is the mean (purple), and error bars in black
+  - The figure legend will be for sex
+  - Error message is for the removed NA values
+
+```{r}
+mass_treat<-read.csv("Results/Combined_Assn5_Data.csv")
+
+prob2 <-ggplot(data= mass_treat,aes(Group,mass)) +
+  geom_jitter(size = 2, aes(Group, mass, color=Sex)) +
+  xlab("Group") +
+  ylab("Mass") +
+  stat_summary(fun = mean,  
+               geom = "crossbar", 
+               width = 0.5, 
+               color = "purple") +
+  stat_summary(geom = "errorbar",  
+               width = 0.6)+
+  ggtitle("Mass by Group and Sex") 
+  labs(color="Sex")
+prob2
+```
+
+
+#### **(3)** Generate a scatter plot of age and mass, indicate treatment with point shape or color, and fit separate regression lines (without CI) to each treatment.  
+  - Create a `ggplot` of the data frame with age and mass as the variables
+  - Want geometric plot as points and create a figure legend for group (dots)
+  - Label the axes and the title
+  - `geom_smooth` adds a trend line and `method=lm` plots a linear model (linear regression line)
+  - `se=false` removes the plotting of a confidence interval around the line
+  - The `labs()` function sets the group (control vs treatment) as the figure legend for the linear model
+
+```{r}
+prob3<-ggplot(data= mass_treat,aes(age,mass) )+ 
+  geom_point(size =3, aes(age, mass, color=Group))+ 
+  xlab("Age")+ 
+  ylab("Mass")+
+  geom_smooth(size = 2, method = lm, 
+              aes(color = Group,  group = Group), 
+              se=FALSE)+
+  labs(color="Group") + 
+  ggtitle("Mass by Age and Group")
+
+prob3
+```
+
+
+#### **(4)** Combine the plots from question 2 and 3 using patchwork tag each panel with, and number or letter and include a title for the overall plot.       
+  - Download the library `patchwork`
+  - `plot_annotation` adds the two plots together and adds a title over them both
+  - The plots are then labeled A and B 
+
+```{r}
+require(patchwork)
+
+prob2+prob3+plot_annotation(title = "Mass by Group and Age",
+                              tag_levels = "A")
+
+```
+
+
+
+
