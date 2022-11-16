@@ -36,7 +36,7 @@ I began my academic career as a double major student in biology and animal ecolo
 |10/13/2022 | Making GGPlots | [Assignment 6](Assn6.html)
 |10/20/2022 | GIS Climate Niche Map | [Assignment 7](GIS.html)
 |10/24/2022 | Tanner's AcuityView Assn | [Assignment 8](Tanners_pres.html)
-|11/10/2022 | Cari's Creating Functions Assn | [Assignment 9]
+|11/10/2022 | Caleb's Rentrez Assn | [Assignment 9](Caleb_pres.html)
 |11/17/2022 | PHYTOOLS PRESENTATION | [Lecture](Bierbaum.html)
 |12/1/2022 | Madison's Heat Map Assn | [Assignment 10]  
 
