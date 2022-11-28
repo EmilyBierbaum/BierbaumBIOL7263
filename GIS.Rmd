@@ -13,6 +13,7 @@ output: html_document
 **R script for GIS Assignment**   
 [Assignment 7](GIS.R)
   
-**GIS Climate Niche Map**
+**GIS Maps**
   
-[Map](GIS_Lessons/Assn7.jpeg)
+[Map](GIS_Lessons/Assn7.jpeg)  
+[Climate Niche](RplotGIS.jpeg)
