@@ -261,12 +261,27 @@ points(my_sites$mean_diurnal_range,
 # Adds in the clicked location observations
 
 
+
+# convert all values not equal to 1 to NA...
+# using "calc" function to implement a custom function
+my_world_thresh <- calc(my_world_thresh, fun=function(x) ifelse(x==0 | is.na(x), NA, 1))
+
+# get random sites
+my_best_sites <- randomPoints(my_world_thresh, 10000)
+my_best_env <- as.data.frame(extract(my_clim_stack, my_best_sites))
+
+# plot world's climate
+smoothScatter(x=bgEnv$temperature_seasonality, y=bgEnv$precip_driest_quarter, col='lightblue')
+points(my_best_env$temperature_seasonality, my_best_env$precip_driest_quarter, col='red', pch=16, cex=0.2)
+points(my_sites$temperature_seasonality, my_sites$precip_driest_quarter, pch=16)
 legend(
   'bottomright',
   inset=0.01,
-  legend=c('world','my niche','my locations'),
+  legend=c('world', 'my niche', 'my locations'),
   pch=16,
   col=c('lightblue', 'red', 'black'),
   pt.cex=c(1, 0.4, 1)
+  
 )
+
 # Now there is a legend
