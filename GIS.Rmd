@@ -6,14 +6,14 @@ output: html_document
 ---
 
 # **Assignment 7** 
-### This markdown file contains the R script for generating a climate niche with my selected locations highlighted, as well as the final image of it
+### This markdown file contains the R script for generating a climate niche with my selected location highlighted, as well as the final image of it
 
 
 
 **R script for GIS Assignment**   
 [Assignment 7](GIS.R)
   
-**GIS Climate Niche Map**
+**GIS Maps**
   
-[World Map](GIS_Lessons/Assn7.jpeg)  
-[Climate Niche](GIS_Lessons/Rplot.jpeg)
+[Map](GIS_Lessons/Assn7.jpeg)  
+[Climate Niche](RplotGIS.jpeg)
