@@ -1,0 +1,140 @@
+<<<<<<< HEAD
+---
+title: "Assn5"
+author: "Emily Bierbaum"
+date: "2022-10-20"
+output: html_document
+---
+## **Assignment 5**
+
+#### Examine the R script for comments  
+[R Script](Assn_5.R)  
+
+##### Download the required R packages for this assignment
+```{r}
+require(tidyverse)
+require(readr)
+require(dplyr)
+```
+
+##### Import the part 1 and 2 files from GitHub 
+```{r}
+Part1_Assn5<-read_csv("https://github.com/mbtoomey/Biol_7263/blob/main/Data/assignment6part1.csv?raw=true",show_col_types = FALSE) 
+
+Part2_Assn5<-read_csv("https://github.com/mbtoomey/Biol_7263/blob/main/Data/assignment6part2.csv?raw=true", show_col_types = FALSE)
+```
+
+
+##### A new file is created "Part1_tibble" 
+```{r}
+Part1_tibble <- Part1_Assn5 %>% pivot_longer(cols = starts_with("Sample"),
+                                             names_to = c("Sample", "Sex", "Group"),
+                                             names_prefix = "Sample", names_transform = list(Sample = as.integer),
+                                             names_sep = "_") %>%
+  pivot_wider(names_from = ID, values_from = value)
+```
+  
+##### A new file is created "Part2_tibble"
+```{r}
+Part2_tibble <- Part2_Assn5 %>% pivot_longer(cols = starts_with("Sample"), 
+                                             names_to = c("SampleTreatment"), 
+                                             names_prefix = "Sample",
+                                             names_transform = list(Sample = as.integer), 
+                                             values_to = "count") %>% separate(SampleTreatment,
+                                             into = c("Sample", "Treatment"), 
+                                             convert = TRUE) %>% 
+  pivot_wider(names_from = ID, values_from = count) %>% select(-Treatment)
+```
+
+##### Combine the two tibbles (part 1 and 2), and export to a csv file
+```{r}
+Part1_tibble %>% full_join(Part2_tibble, by = "Sample") -> Combined_Data
+
+write_csv(Combined_Data, "Results/Combined_Assn5_Data.csv")
+```
+
+##### Create the variable residual mass and calculate the mean and standard deviation for group type and sex
+```{r}
+Combined_Data %>% transmute(Sex=Sex, Group=Group, resid_mass=mass/body_length) %>% 
+  group_by(Group, Sex) %>% 
+  summarize(mean_mass = mean(resid_mass, na.rm = TRUE), SD_mass = sd(resid_mass, na.rm = TRUE)) -> Residual_Mass
+```
+
+##### Export csv file
+```{r}
+write_csv(Residual_Mass, "Results/Final_Residual_Mass.csv")
+```
+
+[Pivot & Merge Data](Results/Combined_Assn5_Data.csv)  
+
+=======
+---
+title: "Assn5"
+author: "Emily Bierbaum"
+date: "2022-10-20"
+output: html_document
+---
+## **Assignment 5**
+
+#### Examine the R script for comments  
+[R Script](Assn_5.R)  
+
+##### Download the required R packages for this assignment
+```{r}
+require(tidyverse)
+require(readr)
+require(dplyr)
+```
+
+##### Import the part 1 and 2 files from GitHub 
+```{r}
+Part1_Assn5<-read_csv("https://github.com/mbtoomey/Biol_7263/blob/main/Data/assignment6part1.csv?raw=true",show_col_types = FALSE) 
+
+Part2_Assn5<-read_csv("https://github.com/mbtoomey/Biol_7263/blob/main/Data/assignment6part2.csv?raw=true", show_col_types = FALSE)
+```
+
+
+##### A new file is created "Part1_tibble" 
+```{r}
+Part1_tibble <- Part1_Assn5 %>% pivot_longer(cols = starts_with("Sample"),
+                                             names_to = c("Sample", "Sex", "Group"),
+                                             names_prefix = "Sample", names_transform = list(Sample = as.integer),
+                                             names_sep = "_") %>%
+  pivot_wider(names_from = ID, values_from = value)
+```
+  
+##### A new file is created "Part2_tibble"
+```{r}
+Part2_tibble <- Part2_Assn5 %>% pivot_longer(cols = starts_with("Sample"), 
+                                             names_to = c("SampleTreatment"), 
+                                             names_prefix = "Sample",
+                                             names_transform = list(Sample = as.integer), 
+                                             values_to = "count") %>% separate(SampleTreatment,
+                                             into = c("Sample", "Treatment"), 
+                                             convert = TRUE) %>% 
+  pivot_wider(names_from = ID, values_from = count) %>% select(-Treatment)
+```
+
+##### Combine the two tibbles (part 1 and 2), and export to a csv file
+```{r}
+Part1_tibble %>% full_join(Part2_tibble, by = "Sample") -> Combined_Data
+
+write_csv(Combined_Data, "Results/Combined_Assn5_Data.csv")
+```
+
+##### Create the variable residual mass and calculate the mean and standard deviation for group type and sex
+```{r}
+Combined_Data %>% transmute(Sex=Sex, Group=Group, resid_mass=mass/body_length) %>% 
+  group_by(Group, Sex) %>% 
+  summarize(mean_mass = mean(resid_mass, na.rm = TRUE), SD_mass = sd(resid_mass, na.rm = TRUE)) -> Residual_Mass
+```
+
+##### Export csv file
+```{r}
+write_csv(Residual_Mass, "Results/Final_Residual_Mass.csv")
+```
+
+[Pivot & Merge Data](Results/Combined_Assn5_Data.csv)  
+
+>>>>>>> refs/remotes/origin/master
+[Residual Mass Statistics](Results/Final_Residual_Mass.csv)
