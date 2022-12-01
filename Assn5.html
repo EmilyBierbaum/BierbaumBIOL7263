@@ -429,83 +429,8 @@ standard deviation for group type and sex</h5>
 <pre class="r"><code>write_csv(Residual_Mass, &quot;Results/Final_Residual_Mass.csv&quot;)</code></pre>
 <p><a href="Results/Combined_Assn5_Data.csv">Pivot &amp; Merge
 Data</a></p>
-</div>
-</div>
-</div>
-<div id="section" class="section level2">
-<h2>=======</h2>
-<p>title: “Assn5” author: “Emily Bierbaum” date: “2022-10-20” output:
-html_document — ## <strong>Assignment 5</strong></p>
-<div id="examine-the-r-script-for-comments-1" class="section level4">
-<h4>Examine the R script for comments</h4>
-<p><a href="Assn_5.R">R Script</a></p>
-<div id="download-the-required-r-packages-for-this-assignment-1" class="section level5">
-<h5>Download the required R packages for this assignment</h5>
-<pre class="r"><code>require(tidyverse)
-require(readr)
-require(dplyr)</code></pre>
-</div>
-<div id="import-the-part-1-and-2-files-from-github-1" class="section level5">
-<h5>Import the part 1 and 2 files from GitHub</h5>
-<pre class="r"><code>Part1_Assn5&lt;-read_csv(&quot;https://github.com/mbtoomey/Biol_7263/blob/main/Data/assignment6part1.csv?raw=true&quot;,show_col_types = FALSE) 
-
-Part2_Assn5&lt;-read_csv(&quot;https://github.com/mbtoomey/Biol_7263/blob/main/Data/assignment6part2.csv?raw=true&quot;, show_col_types = FALSE)</code></pre>
-</div>
-<div id="a-new-file-is-created-part1_tibble-1" class="section level5">
-<h5>A new file is created “Part1_tibble”</h5>
-<pre class="r"><code>Part1_tibble &lt;- Part1_Assn5 %&gt;% pivot_longer(cols = starts_with(&quot;Sample&quot;),
-                                             names_to = c(&quot;Sample&quot;, &quot;Sex&quot;, &quot;Group&quot;),
-                                             names_prefix = &quot;Sample&quot;, names_transform = list(Sample = as.integer),
-                                             names_sep = &quot;_&quot;) %&gt;%
-  pivot_wider(names_from = ID, values_from = value)</code></pre>
-</div>
-<div id="a-new-file-is-created-part2_tibble-1" class="section level5">
-<h5>A new file is created “Part2_tibble”</h5>
-<pre class="r"><code>Part2_tibble &lt;- Part2_Assn5 %&gt;% pivot_longer(cols = starts_with(&quot;Sample&quot;), 
-                                             names_to = c(&quot;SampleTreatment&quot;), 
-                                             names_prefix = &quot;Sample&quot;,
-                                             names_transform = list(Sample = as.integer), 
-                                             values_to = &quot;count&quot;) %&gt;% separate(SampleTreatment,
-                                             into = c(&quot;Sample&quot;, &quot;Treatment&quot;), 
-                                             convert = TRUE) %&gt;% 
-  pivot_wider(names_from = ID, values_from = count) %&gt;% select(-Treatment)</code></pre>
-</div>
-<div id="combine-the-two-tibbles-part-1-and-2-and-export-to-a-csv-file-1" class="section level5">
-<h5>Combine the two tibbles (part 1 and 2), and export to a csv
-file</h5>
-<pre class="r"><code>Part1_tibble %&gt;% full_join(Part2_tibble, by = &quot;Sample&quot;) -&gt; Combined_Data
-
-write_csv(Combined_Data, &quot;Results/Combined_Assn5_Data.csv&quot;)</code></pre>
-</div>
-<div id="create-the-variable-residual-mass-and-calculate-the-mean-and-standard-deviation-for-group-type-and-sex-1" class="section level5">
-<h5>Create the variable residual mass and calculate the mean and
-standard deviation for group type and sex</h5>
-<pre class="r"><code>Combined_Data %&gt;% transmute(Sex=Sex, Group=Group, resid_mass=mass/body_length) %&gt;% 
-  group_by(Group, Sex) %&gt;% 
-  summarize(mean_mass = mean(resid_mass, na.rm = TRUE), SD_mass = sd(resid_mass, na.rm = TRUE)) -&gt; Residual_Mass</code></pre>
-<pre><code>## `summarise()` has grouped output by &#39;Group&#39;. You can override using the
-## `.groups` argument.</code></pre>
-</div>
-<div id="export-csv-file-1" class="section level5">
-<h5>Export csv file</h5>
-<pre class="r"><code>write_csv(Residual_Mass, &quot;Results/Final_Residual_Mass.csv&quot;)</code></pre>
-<p><a href="Results/Combined_Assn5_Data.csv">Pivot &amp; Merge
-Data</a></p>
-<blockquote>
-<blockquote>
-<blockquote>
-<blockquote>
-<blockquote>
-<blockquote>
-<blockquote>
-<p>refs/remotes/origin/master <a href="Results/Final_Residual_Mass.csv">Residual Mass Statistics</a></p>
-</blockquote>
-</blockquote>
-</blockquote>
-</blockquote>
-</blockquote>
-</blockquote>
-</blockquote>
+<p><a href="Results/Final_Residual_Mass.csv">Residual Mass
+Statistics</a></p>
 </div>
 </div>
 </div>
