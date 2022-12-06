@@ -1,0 +1,48 @@
+---
+title: "Madison_Assn"
+author: "Emily Bierbaum"
+date: "2022-12-06"
+output: html_document
+---
+# **Heat Map Assignment**
+**[R script](Madison_Assn.R)**
+
+### Load the following libraries
+```{r}
+library(stats)
+library(ggplot2)
+```
+
+### Import the dataset 
+```{r}
+heat_plot <- read.csv("MAH_assignment_data.csv")
+```
+
+
+### Create the "Expression of Pheromone Genes" heat map
+```{r}
+ggplot(heat_plot, aes(x = Sample, y = Gene, fill = Expression)) +
+  geom_tile(colour="black", linewidth=0.5)+ 
+  scale_fill_gradient(low = "black", high = "light blue")+
+  theme_grey(base_size=8)+
+  facet_grid(~ Tissue, switch = "x", scales = "free_x", space = "free_x") +
+  ggtitle(label = "Expression of Pheromone Genes") +
+  scale_x_discrete(labels=c('A.tri', 'D.brim', 'E.tyn M', 'E.tyn P', 'P.alb', 'R.kez', 
+                            'A.tri', 'D.brim', 'E.tyn M', 'E.tyn P', 'P.alb', 'R.kez',
+                            'A.tri', 'D.brim', 'E.tyn M', 'E.tyn P', 'P.alb', 'R.kez',
+                            'A.tri', 'D.brim', 'E.tyn M', 'E.tyn P', 'P.alb', 'R.kez'))+
+  theme(plot.title = element_text(face="bold"),
+        strip.placement = "outside",
+        strip.text = element_text(face = "bold"),
+        legend.title = element_text(face = "bold"),
+        axis.title = element_text(face="bold"),
+        axis.title.x = element_blank(),
+        axis.text.y =element_text(color = "black"),
+        axis.text.x =element_text(angle = 315, hjust = 0, vjust = 0.5, color = "black"),
+        axis.ticks=element_blank(),
+        plot.background=element_blank(),
+        panel.background = element_blank(),
+        panel.border = element_blank())
+
+```
+
